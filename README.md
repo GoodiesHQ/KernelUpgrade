@@ -1,4 +1,4 @@
-# Kernel_Upgrade
+# KernelUpgrade
 This is a very simple bash script to automate the process of upgrading your kernel on Debian.
 
 ### Requirements
@@ -15,7 +15,8 @@ And whatever else you get an error on. I'm not building this checking nonsense i
 ### Example Usage - Upgrade to Kernel 4.1.6
 
 ```
-sudo mkdir /tmp/build && cd /tmp/build
+sudo su
+mkdir /tmp/build && cd /tmp/build
 curl -# -O https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.1.6.tar.xz
 ./kernel_upgrade.sh linux-4.1.6.tar.xz
 ```
