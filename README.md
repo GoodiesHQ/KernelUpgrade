@@ -8,8 +8,8 @@ This script will simply parse https://www.kernel.org for the newest kernels and 
 	user@server:~$ git clone https://github.com/GoodiesHQ/KernelUpgrade.git
 	user@server:~$ cd KernelUpgrade
 	user@server:~/KernelUpgrade$ chmod +x kernel_upgrade.sh
-	user@server:~/KernelUpgrade$ ./kernel_upgrade.sh
+	user@server:~/KernelUpgrade$ sudo bash kernel_upgrade.sh
 	
 Alternatively, if you have a locally stored Linux Kernel archive in some kind of .tar format, you can use that as your argument.
 
-	user@server:~/KernelUpgrade$ ./kernel_upgrade linux-4.2.tar.xz
+	user@server:~/KernelUpgrade$ sudo bash kernel_upgrade linux-4.2.tar.xz
