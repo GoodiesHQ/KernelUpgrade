@@ -12,8 +12,8 @@ Cyan='\e[0;36m'		# Cyan
 White='\e[0;37m'	# White
 
 NOW=$(date +%h%d_%H-%m-%S)
-FOLDER="Build_$NOW"
-OUTPUT="kernel_$NOW.tar.xz"
+FOLDER="Build_${NOW}"
+OUTPUT="kernel_${NOW}.tar.xz"
 DEPENDENCIES="gcc make fakeroot libncurses5 libncurses5-dev kernel-package build-essential"
 UPDATENEEDED=0
 PLUS="${Cyan}[+]${Reg}"
@@ -24,7 +24,7 @@ print_kernels(){
 	TOTAL2=""
 	COUNT=0
 	for ver in $(curl -s https://kernel.org | grep "Download complete tarball" | cut -d '.' -f 2- | cut -d '"' -f 1); do
-		TOTAL="${TOTAL}\nhttps://www.kernel.org$ver"
+		TOTAL="${TOTAL}\nhttps://www.$ver"
 	done
 	echo -ne "\n"
 	for ver in $(echo -e $TOTAL); do
@@ -35,20 +35,24 @@ print_kernels(){
 	COUNT=0
 	echo -n -e "\n\nSelect your desired kernel: "
 	read INPUT
+	echo "THIS IS A TEST"
 	if ! [ $INPUT -eq $INPUT 2>/dev/null ]; then
 		echo "Input must be an integer."
 		exit 0
 	fi
 	echo ""
+	echo "Continuing"
 	for ver in $(echo -e $TOTAL); do
+		echo "${ver}"
 		((COUNT++))
 		if [ $COUNT -eq $INPUT ]; then
 			echo -e "${PLUS} Downloading Kernel"
 			echo -e "\_ Saving as ${Cyan}${OUTPUT}${Reg}"
-			curl -# $ver -o "$OUTPUT"
+			curl -# -o "$OUTPUT" ${ver}
 		fi
 	done
 }
+
 update(){
 	echo -e "${PLUS} Dependencies"
 	printf "%-20s" "\_ Updating APT"
@@ -99,6 +103,8 @@ check_deps
 echo -e "${PLUS} Creating a directory to build your kernel from source."
 mkdir $FOLDER 2>/dev/null || { echo "You cannot create a directory here." >&2; exit 1; }
 echo -e "    Directory Created:\t${Cyan}${FOLDER}${Reg}\n"
+
+echo "${OUTPUT} ~ ${FOLDER}"
 
 echo -e "${PLUS} Extracting your kernel. This may take a while depending on your hardware."
 tar xf $OUTPUT -C ./$FOLDER || { echo "An error occured while extracting the archive." >&2; exit 1; }
